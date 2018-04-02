@@ -13,6 +13,13 @@ public class GCPoll extends JavaPlugin {
 	 * Created 4/1/2018.
 	 * 
 	 * Last edited: 2nd of April 2018
+	 * 
+	 * TODO: 
+	 * = If possible, make it an anvil inventory(in making the options).
+	 *   > Get the item meta of currentitem.
+	 *   > Set and add on the inventory
+	 * = Fix bugs
+	 * = Ask Jono about stuff but don't over do it.
 	 */
 
 	public static GCPoll plugin;

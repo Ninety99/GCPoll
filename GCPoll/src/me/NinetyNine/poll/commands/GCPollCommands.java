@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 
+import me.NinetyNine.poll.utils.GCPollTimeUtil;
 import me.NinetyNine.poll.utils.GCPollUtil;
 
 public class GCPollCommands implements Listener, CommandExecutor {
@@ -65,6 +66,7 @@ public class GCPollCommands implements Listener, CommandExecutor {
 							questionn += args[i] + " ";
 						}
 						questionn.trim();
+						GCPollTimeUtil.onStart();
 						GCPollUtil.openTime(player);
 					}
 
