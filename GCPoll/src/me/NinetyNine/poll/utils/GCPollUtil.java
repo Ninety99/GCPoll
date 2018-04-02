@@ -133,6 +133,7 @@ public class GCPollUtil {
 		paperr.setItemMeta(paperrmeta);
 
 		anvilinv.setItem(0, paperr);
+		player.giveExpLevels(1);
 
 		player.openInventory(anvilinv);
 	}
