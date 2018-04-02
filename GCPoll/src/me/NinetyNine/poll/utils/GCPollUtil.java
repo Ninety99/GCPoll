@@ -130,6 +130,7 @@ public class GCPollUtil {
 
 		ItemStack paperr = new ItemStack(Material.PAPER, 1);
 		ItemMeta paperrmeta = paperr.getItemMeta();
+		paperrmeta.setDisplayName("Rename me as options!");
 		paperr.setItemMeta(paperrmeta);
 
 		anvilinv.setItem(0, paperr);

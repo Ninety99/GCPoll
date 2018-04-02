@@ -29,8 +29,8 @@ public class GCPollEventHandler implements Listener {
 		Player player = (Player) e.getWhoClicked();
 		Inventory inventory = e.getInventory();
 		ItemStack item = e.getCurrentItem();
-		ItemStack itemina = e.getCurrentItem();
-		ItemMeta itemmeta = itemina.getItemMeta();
+		ItemStack iteminanv = e.getCurrentItem();
+		ItemMeta itemmeta = iteminanv.getItemMeta();
 		int rawSlot = e.getRawSlot();
 		InventoryView view = e.getView();
 
@@ -109,13 +109,13 @@ public class GCPollEventHandler implements Listener {
 								if (itemmeta.hasDisplayName()) {
 									String displayName = itemmeta.getDisplayName();
 									itemmeta.setDisplayName(displayName);
-									itemina.setItemMeta(itemmeta);
-									inventory.addItem(itemina);
+									iteminanv.setItemMeta(itemmeta);
+									inventory.addItem(iteminanv);
 									player.closeInventory();
 								} else
 									e.setCancelled(true);
 							} else
-								e.setCancelled(true);
+								return;
 						}
 					}
 				}
