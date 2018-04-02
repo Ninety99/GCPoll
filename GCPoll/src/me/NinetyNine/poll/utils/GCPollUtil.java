@@ -32,41 +32,15 @@ public class GCPollUtil {
 	public static ItemStack paper2 = new ItemStack(Material.PAPER);
 	public static ItemStack paper3 = new ItemStack(Material.PAPER);
 
-	public static void setDisplay1(Player player, String displayName1) {
+	public static void setDisplay1(Player player, String displayName) {
 		Inventory inv1 = inv;
 
-		ItemStack paper11 = paper1;
-		ItemMeta papermeta1 = paper11.getItemMeta();
-		papermeta1.setDisplayName(displayName1);
-		paper11.setItemMeta(papermeta1);
+		ItemStack paper = paper1;
+		ItemMeta papermeta = paper.getItemMeta();
+		papermeta.setDisplayName(displayName);
+		paper.setItemMeta(papermeta);
 
-		inv1.addItem(paper11);
-
-		player.openInventory(inv1);
-	}
-
-	public static void setDisplay2(Player player, String displayName2) {
-		Inventory inv1 = inv;
-
-		ItemStack paper22 = paper2;
-		ItemMeta papermeta2 = paper22.getItemMeta();
-		papermeta2.setDisplayName(displayName2);
-		paper22.setItemMeta(papermeta2);
-
-		inv1.addItem(paper22);
-
-		player.openInventory(inv1);
-	}
-
-	public static void setDisplay3(Player player, String displayName3) {
-		Inventory inv1 = inv;
-
-		ItemStack paper33 = paper2;
-		ItemMeta papermeta2 = paper33.getItemMeta();
-		papermeta2.setDisplayName(displayName3);
-		paper33.setItemMeta(papermeta2);
-
-		inv1.addItem(paper33);
+		inv1.addItem(paper);
 
 		player.openInventory(inv1);
 	}
