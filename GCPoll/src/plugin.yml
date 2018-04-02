@@ -1,0 +1,19 @@
+name: GCPoll
+main: me.NinetyNine.poll.GCPoll
+author: NinetyNine
+version: 1.0
+description: Do a quick poll!
+commands:
+  poll:
+    usage: /<command>
+    description: Make polls!
+permissions:
+  poll.poll:
+    description: Uses the poll command to do something with poll!
+    default: true
+  poll.default:
+    description: Defines if the player has permissions to see things!
+    default: false
+  poll.admin:
+    description: Edits, starts a poll!
+    default: false
