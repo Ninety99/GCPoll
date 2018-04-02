@@ -77,11 +77,13 @@ public class GCPollCommands implements Listener, CommandExecutor {
 							return true;
 						}
 					}
-
+					
+					//GCPollUtil.sendMessage(player, eprefix + "Usage: /poll add option <one/two/three> <option>");
+					
 					if (args[1].equalsIgnoreCase("option")) {
 						if (args.length == 2) {
 							GCPollUtil.sendMessage(player,
-									eprefix + "Usage: /poll add option <one/two/three> <option>");
+									eprefix + "Usage: /poll add option <one/two/three>");
 							return true;
 						}
 					}

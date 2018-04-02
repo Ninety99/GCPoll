@@ -6,13 +6,11 @@ import me.NinetyNine.poll.GCPoll;
 
 public class GCPollTimeUtil implements Listener {
 
-	public static GCPoll plugin;
-
 	public static void onStart() {
-		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+		GCPoll.plugin.getServer().getScheduler().scheduleSyncDelayedTask(GCPoll.plugin, new Runnable() {
 			public void run() {
 				GCPollUtil.onEnd();
 			}
-		}, 20 * plugin.getConfig().getInt("whatTime"));
+		}, 20 * GCPoll.plugin.getConfig().getInt("whatTime"));
 	}
 }

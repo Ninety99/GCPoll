@@ -29,8 +29,8 @@ public class GCPollUtil {
 	public static Inventory inv = Bukkit.createInventory(null, 9, GREEN + invTitle);
 
 	public static ItemStack paper1 = new ItemStack(Material.PAPER);
-	public static ItemStack paper2 = new ItemStack(Material.PAPER);
-	public static ItemStack paper3 = new ItemStack(Material.PAPER);
+	//public static ItemStack paper2 = new ItemStack(Material.PAPER);
+	//public static ItemStack paper3 = new ItemStack(Material.PAPER);
 
 	public static void setDisplay1(Player player, String displayName) {
 		Inventory inv1 = inv;
