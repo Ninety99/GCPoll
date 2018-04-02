@@ -153,6 +153,13 @@ public class GCPollUtil {
 
 	public static void openAnvInv(Player player) {
 		Inventory anvilinv = Bukkit.createInventory(null, InventoryType.ANVIL);
+
+		ItemStack paperr = new ItemStack(Material.PAPER, 1);
+		ItemMeta paperrmeta = paperr.getItemMeta();
+		paperr.setItemMeta(paperrmeta);
+
+		anvilinv.setItem(0, paperr);
+
 		player.openInventory(anvilinv);
 	}
 
