@@ -100,18 +100,21 @@ public class GCPollUtil {
 		if (firstItem > secondItem) {
 			if (firstItem > thirdItem) {
 				endAnnouncer(GCPollCommands.text1 + " has been picked!");
+				return;
 			}
 		}
 
 		if (secondItem > firstItem) {
 			if (secondItem > thirdItem) {
 				endAnnouncer(GCPollCommands.text2 + " has been picked!");
+				return;
 			}
 		}
 
 		if (thirdItem > firstItem) {
 			if (thirdItem > secondItem) {
 				endAnnouncer(GCPollCommands.text3 + " has been picked!");
+				return;
 			}
 		}
 	}
