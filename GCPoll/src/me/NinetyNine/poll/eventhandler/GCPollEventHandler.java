@@ -111,6 +111,7 @@ public class GCPollEventHandler implements Listener {
 									itemmeta.setDisplayName(displayName);
 									itemina.setItemMeta(itemmeta);
 									inventory.addItem(itemina);
+									player.closeInventory();
 								} else
 									e.setCancelled(true);
 							} else

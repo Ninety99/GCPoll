@@ -23,7 +23,7 @@ public class GCPollCommands implements Listener, CommandExecutor {
 		Player player = (Player) sender;
 		Inventory inventory = GCPollUtil.inv;
 		String eprefix = ChatColor.translateAlternateColorCodes('&', "&8(&c!&8)&c ");
-		String oprefix = ChatColor.translateAlternateColorCodes('&', "&8(&2!&8)&2 ");
+		//String oprefix = ChatColor.translateAlternateColorCodes('&', "&8(&2!&8)&2 ");
 
 		if (cmd.getName().equalsIgnoreCase("poll")) {
 			if (player.hasPermission("poll.poll")) {
@@ -85,6 +85,7 @@ public class GCPollCommands implements Listener, CommandExecutor {
 							return true;
 						}
 					}
+					
 					//GCPollUtil.sendMessage(player, eprefix + "Usage: /poll add option one <option>");
 					
 					if (args[2].equalsIgnoreCase("one")) {
@@ -105,11 +106,14 @@ public class GCPollCommands implements Listener, CommandExecutor {
 						return true;
 					}
 
+					//GCPollUtil.sendMessage(player, eprefix + "Usage: /poll add option two <option>");
+					
 					if (args[2].equalsIgnoreCase("two")) {
 						if (args.length == 3) {
-							GCPollUtil.sendMessage(player, eprefix + "Usage: /poll add option two <option>");
+							GCPollUtil.sendMessage(player, eprefix + "Usage: /poll add option two");
 							return true;
 						}
+						/*
 						String option2 = text2;
 						for (int i1 = 4; i1 < args.length; i1++) {
 							option2 += args[i1] + " ";
@@ -117,14 +121,19 @@ public class GCPollCommands implements Listener, CommandExecutor {
 						option2.trim();
 						GCPollUtil.setDisplay2(player, option2);
 						GCPollUtil.sendMessage(player, oprefix + "Succesfully set " + option2 + " to option two!");
+						*/
+						GCPollUtil.openAnvInv(player);
 						return true;
 					}
+					
+					//GCPollUtil.sendMessage(player, eprefix + "Usage: /poll add option three <option>");
 
 					if (args[2].equalsIgnoreCase("three")) {
 						if (args.length == 3) {
-							GCPollUtil.sendMessage(player, eprefix + "Usage: /poll add option three <option>");
+							GCPollUtil.sendMessage(player, eprefix + "Usage: /poll add option three");
 							return true;
 						}
+						/*
 						String option3 = text3;
 						for (int i1 = 4; i1 < args.length; i1++) {
 							option3 += args[i1] + " ";
@@ -132,6 +141,8 @@ public class GCPollCommands implements Listener, CommandExecutor {
 						option3.trim();
 						GCPollUtil.setDisplay3(player, option3);
 						GCPollUtil.sendMessage(player, oprefix + "Succesfully set " + option3 + " to option three!");
+						*/
+						GCPollUtil.openAnvInv(player);
 						return true;
 					}
 				} else
