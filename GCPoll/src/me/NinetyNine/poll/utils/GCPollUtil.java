@@ -15,6 +15,7 @@ import static org.bukkit.ChatColor.translateAlternateColorCodes;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -150,8 +151,9 @@ public class GCPollUtil {
 		player.openInventory(inventory);
 	}
 
-	public static void createAnvInv(Player player, ItemStack itemStack, ItemMeta itemMeta) {
-		
+	public static void openAnvInv(Player player) {
+		Inventory anvilinv = Bukkit.createInventory(null, InventoryType.ANVIL);
+		player.openInventory(anvilinv);
 	}
 
 	public static void sendMessage(Player player, String message) {

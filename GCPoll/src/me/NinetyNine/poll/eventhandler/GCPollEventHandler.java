@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
@@ -99,20 +100,22 @@ public class GCPollEventHandler implements Listener {
 			}
 		}
 
-		if (inventory instanceof AnvilInventory) {
-			if (item.getType().equals(Material.PAPER)) {
-				if (rawSlot == view.convertSlot(rawSlot)) {
-					if (rawSlot == 2) {
-						if (itemmeta != null) {
-							if (itemmeta.hasDisplayName()) {
-								String displayName = itemmeta.getDisplayName();
-								itemmeta.setDisplayName(displayName);
-								itemina.setItemMeta(itemmeta);
-								inventory.addItem(itemina);
+		if (inventory.getType().equals(InventoryType.ANVIL)) {
+			if (inventory instanceof AnvilInventory) {
+				if (item.getType().equals(Material.PAPER)) {
+					if (rawSlot == view.convertSlot(rawSlot)) {
+						if (rawSlot == 2) {
+							if (itemmeta != null) {
+								if (itemmeta.hasDisplayName()) {
+									String displayName = itemmeta.getDisplayName();
+									itemmeta.setDisplayName(displayName);
+									itemina.setItemMeta(itemmeta);
+									inventory.addItem(itemina);
+								} else
+									e.setCancelled(true);
 							} else
 								e.setCancelled(true);
-						} else
-							e.setCancelled(true);
+						}
 					}
 				}
 			}

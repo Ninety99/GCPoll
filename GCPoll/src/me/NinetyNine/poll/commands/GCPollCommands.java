@@ -85,19 +85,23 @@ public class GCPollCommands implements Listener, CommandExecutor {
 							return true;
 						}
 					}
-
+					//GCPollUtil.sendMessage(player, eprefix + "Usage: /poll add option one <option>");
+					
 					if (args[2].equalsIgnoreCase("one")) {
 						if (args.length == 3) {
-							GCPollUtil.sendMessage(player, eprefix + "Usage: /poll add option one <option>");
+							GCPollUtil.sendMessage(player, eprefix + "Usage: /poll add option one");
 							return true;
 						}
+						/*
 						String option1 = text1;
 						for (int i1 = 4; i1 < args.length; i1++) {
 							option1 += args[i1] + " ";
 						}
 						option1.trim();
 						GCPollUtil.setDisplay1(player, option1);
-						GCPollUtil.sendMessage(player, oprefix + "Succesfully set " + option1 + " to option one!");
+						*/
+						//GCPollUtil.sendMessage(player, oprefix + "Succesfully set " + option1 + " to option one!");
+						GCPollUtil.openAnvInv(player);
 						return true;
 					}
 
