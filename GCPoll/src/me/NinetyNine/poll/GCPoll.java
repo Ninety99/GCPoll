@@ -12,7 +12,7 @@ public class GCPoll extends JavaPlugin {
 	/*
 	 * Created 4/1/2018.
 	 * 
-	 * Last edited: 1st of April 2018
+	 * Last edited: 2nd of April 2018
 	 */
 
 	public static GCPoll plugin;
