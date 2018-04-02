@@ -150,6 +150,10 @@ public class GCPollUtil {
 		player.openInventory(inventory);
 	}
 
+	public static void createAnvInv(Player player, ItemStack itemStack, ItemMeta itemMeta) {
+		
+	}
+
 	public static void sendMessage(Player player, String message) {
 		player.sendMessage(translateAlternateColorCodes('&', message));
 	}
