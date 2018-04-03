@@ -32,6 +32,7 @@ public class GCPoll extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new GCPollTimeUtil(), this);
 		getServer().getPluginManager().registerEvents(new GCPollUtil(), this);
 		getCommand("poll").setExecutor(new GCPollCommands());
+		getCommand("gcpoll").setExecutor(new GCPollCommands());
 
 		GCPollUtil.sendConsoleMsg("Getting config...");
 		plugin.getConfig().set("whatQuestion", "");
