@@ -2,6 +2,7 @@ package me.NinetyNine.poll.commands;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -81,7 +82,10 @@ public class GCPollCommands implements Listener, CommandExecutor {
 						}
 						question1.trim();
 						GCPollUtil.startPoll(player);
-						GCPollPUtils.sendTitle(player, "Poll ongoing!", "By: " + player.getPlayer().getName(), 2, 5, 2);
+						for (Player p : Bukkit.getOnlinePlayers()) {
+							GCPollPUtils.sendTitle(p, "Poll ongoing!", "By: " + player.getPlayer().getName(), 2, 5,
+									2);
+						}
 						return true;
 					}
 
