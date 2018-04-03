@@ -28,9 +28,9 @@ public class GCPollUtil implements Listener {
 	
 	//inv is going to be the getter of the options
 	public static Inventory inv = Bukkit.createInventory(null, 9, invTitle);
-	public static String inventoryTitle = inv.getTitle();
 	
 	public static String invvT = GCPoll.plugin.getConfig().getString("whatTitle");
+	
 	//create1more is going to be the one who sets the title and meet the other title with an event handler
 	public static Inventory create1more = Bukkit.createInventory(null, 9, invvT);
 

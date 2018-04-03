@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 import me.NinetyNine.poll.GCPoll;
 import me.NinetyNine.poll.commands.GCPollCommands;
+import me.NinetyNine.poll.utils.GCPollPUtils;
 import me.NinetyNine.poll.utils.GCPollUtil;
 
 public class GCPollEventHandler implements Listener {
@@ -25,21 +26,24 @@ public class GCPollEventHandler implements Listener {
 		Player player = (Player) e.getWhoClicked();
 		Inventory inventory = e.getInventory();
 		ItemStack item = e.getCurrentItem();
+		String invTitle = GCPoll.plugin.getConfig().getString("whatTitle");
 
 		if (item == null || item.getType().equals(Material.AIR))
 			return;
 
-		if (inventory.getTitle().equalsIgnoreCase(GCPollUtil.invvT)) {
+		if (inventory.getTitle().equalsIgnoreCase(invTitle)) {
 			if (item.getItemMeta().getDisplayName().equals(GCPollCommands.text1) && item.hasItemMeta()) {
 				inventory.addItem(item);
 				player.closeInventory();
 				GCPollUtil.sendMessage(player, "&8(&2!&8) &1Succesfully voted &l&2" + GCPollCommands.text1 + "&1!");
+				GCPollPUtils.sendActionBar(player, "§1Succesfully voted §l§2" + GCPollCommands.text1 + "§1!");
 			}
 
 			if (item.getItemMeta().getDisplayName() == GCPollCommands.text2 && item.hasItemMeta()) {
 				inventory.addItem(item);
 				player.closeInventory();
 				GCPollUtil.sendMessage(player, "&8(&2!&8) &1Succesfully voted &l&2" + GCPollCommands.text2 + "&1!");
+				GCPollPUtils.sendActionBar(player, "§1Succesfully voted §l§2" + GCPollCommands.text2 + "§1!");
 				return;
 			}
 
@@ -47,6 +51,7 @@ public class GCPollEventHandler implements Listener {
 				inventory.addItem(item);
 				player.closeInventory();
 				GCPollUtil.sendMessage(player, "&8(&2!&8) &1Succesfully voted &l&2" + GCPollCommands.text3 + "&1!");
+				GCPollPUtils.sendActionBar(player, "§1Succesfully voted §l§2" + GCPollCommands.text3 + "§1!");
 				return;
 			}
 		}

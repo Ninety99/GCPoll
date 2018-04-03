@@ -1,5 +1,7 @@
 package me.NinetyNine.poll.commands;
 
+import java.util.ArrayList;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -8,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 
+import me.NinetyNine.poll.utils.GCPollPUtils;
 import me.NinetyNine.poll.utils.GCPollUtil;
 
 public class GCPollCommands implements Listener, CommandExecutor {
@@ -16,8 +19,10 @@ public class GCPollCommands implements Listener, CommandExecutor {
 	public static String text1 = "";
 	public static String text2 = "";
 	public static String text3 = "";
-	
-	public static String question1 = question;	
+
+	public static String question1 = question;
+
+	public static ArrayList<String> ongoing = new ArrayList<String>();
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -48,7 +53,7 @@ public class GCPollCommands implements Listener, CommandExecutor {
 				if (player.hasPermission("poll.admin")) {
 					if (args[0].equalsIgnoreCase("stop")) {
 						if (args.length == 1) {
-							if (inventory.getContents() == null) {
+							if (ongoing.contains("poll")) {
 								GCPollUtil.sendMessage(player,
 										eprefix + "There must be a poll ongoing to stop the poll!");
 								return true;
@@ -61,58 +66,61 @@ public class GCPollCommands implements Listener, CommandExecutor {
 
 					if (args[0].equalsIgnoreCase("start")) {
 						if (args.length == 1) {
-							//if (inventory.getItem(inventory.getSize()) == null) {
-								GCPollUtil.sendMessage(player, eprefix + "Usage: /poll start <question>");
-								return true;
-							/*} else {
+							if (ongoing.contains("poll")) {
 								GCPollUtil.sendMessage(player, eprefix + "There is a poll ongoing!");
 								return true;
-							}*/
+							} else {
+								ongoing.add("poll");
+								GCPollUtil.sendMessage(player, eprefix + "Usage: /poll start <question>");
+								return true;
+							}
 						}
-						
+
 						for (int i = 1; i < args.length; i++) {
 							question1 += args[i] + " ";
 						}
 						question1.trim();
 						GCPollUtil.startPoll(player);
+						GCPollPUtils.sendTitle(player, "Poll ongoing!", "By: " + player.getPlayer().getName(), 2, 5, 2);
 						return true;
 					}
 
 					if (args[0].equalsIgnoreCase("add")) {
 						if (args.length == 1) {
-							// if (inventory.getContents() == null) {
-							GCPollUtil.sendMessage(player,
-									eprefix + "&cUsage: /poll add option <one/two/three> <option>");
-							return true;
-							/*
-							 * } else { //GCPollUtil.sendMessage(player, eprefix +
-							 * "Usage: /poll add option <one/two/three>"); //return true;
-							 */}
+							if (ongoing.contains("poll")) {
+								GCPollUtil.sendMessage(player, eprefix + "There is a poll ongoing!");
+								return true;
+							} else {
+								GCPollUtil.sendMessage(player,
+										eprefix + "&cUsage: /poll add option <one/two/three> <option>");
+								return true;
+							}
+						}
 					}
 
 					if (args[1].equalsIgnoreCase("option")) {
 						if (args.length == 2) {
-							// if (inventory.getContents() == null) {
-							GCPollUtil.sendMessage(player,
-									eprefix + "Usage: /poll add option <one/two/three> <option>");
-							return true;
-							/*
-							 * } else { GCPollUtil.sendMessage(player, eprefix +
-							 * "There are no poll ongoing! Therefore you can't add any options!"); return
-							 * true;
-							 */}
+							if (ongoing.contains("poll")) {
+								GCPollUtil.sendMessage(player, eprefix + "There is a poll ongoing!");
+								return true;
+							} else {
+								GCPollUtil.sendMessage(player,
+										eprefix + "Usage: /poll add option <one/two/three> <option>");
+								return true;
+							}
+						}
 					}
 
 					if (args[2].equalsIgnoreCase("one")) {
 						if (args.length == 3) {
-							// if (inventory.getContents() == null) {
-							GCPollUtil.sendMessage(player, eprefix + "Usage: /poll add option one <option>");
-							return true;
-							/*
-							 * } else { GCPollUtil.sendMessage(player, eprefix +
-							 * "There is a poll ongoing! Therefore you cannot add any options!"); return
-							 * true;
-							 */}
+							if (ongoing.contains("poll")) {
+								GCPollUtil.sendMessage(player, eprefix + "There is a poll ongoing!");
+								return true;
+							} else {
+								GCPollUtil.sendMessage(player, eprefix + "Usage: /poll add option one <option>");
+								return true;
+							}
+						}
 						String option1 = text1;
 						for (int i1 = 3; i1 < args.length; i1++) {
 							option1 += args[i1] + " ";
@@ -126,14 +134,13 @@ public class GCPollCommands implements Listener, CommandExecutor {
 
 					if (args[2].equalsIgnoreCase("two")) {
 						if (args.length == 3) {
-							// if (inventory.getContents() == null) {
-							GCPollUtil.sendMessage(player, eprefix + "Usage: /poll add option two <option>");
-							return true;
-							/*
-							 * } else { GCPollUtil.sendMessage(player, eprefix +
-							 * "There is a poll ongoing! Therefore you cannot add any options!"); return
-							 * true; }
-							 */
+							if (ongoing.contains("poll")) {
+								GCPollUtil.sendMessage(player, eprefix + "There is a poll ongoing!");
+								return true;
+							} else {
+								GCPollUtil.sendMessage(player, eprefix + "Usage: /poll add option two <option>");
+								return true;
+							}
 						}
 						String option2 = text2;
 						for (int i1 = 3; i1 < args.length; i1++) {
@@ -149,14 +156,14 @@ public class GCPollCommands implements Listener, CommandExecutor {
 
 					if (args[2].equalsIgnoreCase("three")) {
 						if (args.length == 3) {
-							// if (inventory.getContents() == null) {
-							GCPollUtil.sendMessage(player, eprefix + "Usage: /poll add option three <option>");
-							return true;
-						} /*
-							 * else { GCPollUtil.sendMessage(player, eprefix +
-							 * "There is a poll ongoing! Therefore you cannot add any options!"); return
-							 * true; }
-							 */
+							if (ongoing.contains("poll")) {
+								GCPollUtil.sendMessage(player, eprefix + "There is a poll ongoing!");
+								return true;
+							} else {
+								GCPollUtil.sendMessage(player, eprefix + "Usage: /poll add option three <option>");
+								return true;
+							}
+						}
 						String option3 = text3;
 						for (int i1 = 3; i1 < args.length; i1++) {
 							option3 += args[i1] + " ";

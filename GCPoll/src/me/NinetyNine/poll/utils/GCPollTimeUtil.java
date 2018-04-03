@@ -4,6 +4,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.NinetyNine.poll.GCPoll;
+import me.NinetyNine.poll.commands.GCPollCommands;
 
 public class GCPollTimeUtil implements Listener {
 
@@ -12,6 +13,7 @@ public class GCPollTimeUtil implements Listener {
 			@Override
 			public void run() {
 				GCPollUtil.onEnd();
+				GCPollCommands.ongoing.remove("poll");
 			}
 		}.runTaskLater(GCPoll.plugin, 1200 * GCPoll.plugin.getConfig().getInt("whatTime"));
 	}
