@@ -64,11 +64,13 @@ public class GCPollCommands implements Listener, CommandExecutor {
 
 				if (args[0].equalsIgnoreCase("stop")) {
 					if (args.length == 1) {
-						if (ongoing.contains("poll")) {
+						if (!ongoing.contains("poll")) {
 							GCPollUtil.sendMessage(player, eprefix + "There must be a poll ongoing to stop the poll!");
 							return true;
 						} else {
+							ongoing.remove("poll");
 							GCPollUtil.stopPoll(inventory);
+							GCPollUtil.sendMessage(player, oprefix + "Stopped the poll!");
 							return true;
 						}
 					}
