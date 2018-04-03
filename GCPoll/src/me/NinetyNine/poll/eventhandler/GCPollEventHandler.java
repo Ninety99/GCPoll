@@ -28,62 +28,61 @@ public class GCPollEventHandler implements Listener {
 
 		if (item == null || item.getType().equals(Material.AIR))
 			return;
-		e.setCancelled(true);
 
-		if (inventory.getTitle().equalsIgnoreCase(GCPollCommands.question)) {
-			if (item.getType().equals(Material.PAPER)
-					&& item.getItemMeta().getDisplayName() == GCPollCommands.text1
-					&& item.hasItemMeta()) {
+		if (inventory.getTitle().equalsIgnoreCase(GCPollUtil.invvT)) {
+			if (item.getItemMeta().getDisplayName().equals(GCPollCommands.text1) && item.hasItemMeta()) {
 				inventory.addItem(item);
 				player.closeInventory();
 				GCPollUtil.sendMessage(player, "&8(&2!&8) &1Succesfully voted &l&2" + GCPollCommands.text1 + "&1!");
 			}
 
-			if (item.getType().equals(Material.PAPER) && item.getItemMeta().getDisplayName() == GCPollCommands.text2
-					&& item.hasItemMeta()) {
+			if (item.getItemMeta().getDisplayName() == GCPollCommands.text2 && item.hasItemMeta()) {
 				inventory.addItem(item);
 				player.closeInventory();
 				GCPollUtil.sendMessage(player, "&8(&2!&8) &1Succesfully voted &l&2" + GCPollCommands.text2 + "&1!");
 				return;
 			}
+
+			if (item.getItemMeta().getDisplayName() == GCPollCommands.text3 && item.hasItemMeta()) {
+				inventory.addItem(item);
+				player.closeInventory();
+				GCPollUtil.sendMessage(player, "&8(&2!&8) &1Succesfully voted &l&2" + GCPollCommands.text3 + "&1!");
+				return;
+			}
 		}
 
 		if (inventory.getTitle().equalsIgnoreCase(ChatColor.RED + "Choose a time!")) {
-			if (item.getType().equals(Material.COAL_BLOCK)
-					&& item.getItemMeta().getDisplayName() == ChatColor.GOLD + "5 minutes" && item.hasItemMeta()) {
-				GCPoll.plugin.getConfig().set("whatTime", coali);
-				GCPoll.plugin.saveConfig();
-				GCPoll.plugin.reloadConfig();
-				player.closeInventory();
+			if (item.getItemMeta().getDisplayName().equals(ChatColor.GOLD + "5 minutes") && item.hasItemMeta()) {
 				GCPollUtil.addTime(coali);
-			}
-
-			if (item.getType().equals(Material.REDSTONE_BLOCK)
-					&& item.getItemMeta().getDisplayName() == ChatColor.YELLOW + "10 minutes" && item.hasItemMeta()) {
-				GCPoll.plugin.getConfig().set("whatTime", redi);
 				GCPoll.plugin.saveConfig();
 				GCPoll.plugin.reloadConfig();
 				player.closeInventory();
+				GCPollUtil.startAnnouncer(GCPollCommands.question1);
+			}
+
+			if (item.getItemMeta().getDisplayName().equals(ChatColor.YELLOW + "10 minutes") && item.hasItemMeta()) {
 				GCPollUtil.addTime(redi);
+				GCPoll.plugin.saveConfig();
+				GCPoll.plugin.reloadConfig();
+				player.closeInventory();
+				GCPollUtil.startAnnouncer(GCPollCommands.question1);
 			}
 
-			if (item.getType().equals(Material.GOLD_BLOCK)
-					&& item.getItemMeta().getDisplayName() == ChatColor.LIGHT_PURPLE + "15 minutes"
+			if (item.getItemMeta().getDisplayName().equals(ChatColor.LIGHT_PURPLE + "15 minutes")
 					&& item.hasItemMeta()) {
-				GCPoll.plugin.getConfig().set("whatTime", goldi);
+				GCPollUtil.addTime(goldi);
 				GCPoll.plugin.saveConfig();
 				GCPoll.plugin.reloadConfig();
 				player.closeInventory();
-				GCPollUtil.addTime(goldi);
+				GCPollUtil.startAnnouncer(GCPollCommands.question1);
 			}
 
-			if (item.getType().equals(Material.IRON_BLOCK)
-					&& item.getItemMeta().getDisplayName() == ChatColor.GRAY + "20 minutes" && item.hasItemMeta()) {
-				GCPoll.plugin.getConfig().set("whatTime", ironi);
+			if (item.getItemMeta().getDisplayName().equals(ChatColor.GRAY + "20 minutes") && item.hasItemMeta()) {
+				GCPollUtil.addTime(ironi);
 				GCPoll.plugin.saveConfig();
 				GCPoll.plugin.reloadConfig();
 				player.closeInventory();
-				GCPollUtil.addTime(ironi);
+				GCPollUtil.startAnnouncer(GCPollCommands.question1);
 			}
 		}
 	}

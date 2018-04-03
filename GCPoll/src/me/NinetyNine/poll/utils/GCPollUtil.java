@@ -8,7 +8,6 @@ import static org.bukkit.ChatColor.GRAY;
 import static org.bukkit.ChatColor.GREEN;
 import static org.bukkit.ChatColor.LIGHT_PURPLE;
 import static org.bukkit.ChatColor.RED;
-import static org.bukkit.ChatColor.WHITE;
 import static org.bukkit.ChatColor.YELLOW;
 import static org.bukkit.ChatColor.translateAlternateColorCodes;
 
@@ -25,8 +24,15 @@ import me.NinetyNine.poll.commands.GCPollCommands;
 
 public class GCPollUtil implements Listener {
 
-	public static String invTitle = GCPollCommands.question;
-	public static Inventory inv = Bukkit.createInventory(null, 9, GREEN + invTitle);
+	public static String invTitle = GCPollCommands.question1;
+	
+	//inv is going to be the getter of the options
+	public static Inventory inv = Bukkit.createInventory(null, 9, invTitle);
+	public static String inventoryTitle = inv.getTitle();
+	
+	public static String invvT = GCPoll.plugin.getConfig().getString("whatTitle");
+	//create1more is going to be the one who sets the title and meet the other title with an event handler
+	public static Inventory create1more = Bukkit.createInventory(null, 9, invvT);
 
 	public static ItemStack paper1 = new ItemStack(Material.PAPER);
 
@@ -43,16 +49,12 @@ public class GCPollUtil implements Listener {
 		player.openInventory(inv1);
 	}
 
-	public static void startAnnouncer(String question, int timee) {
+	public static void startAnnouncer(String question) {
 		Bukkit.getServer()
 				.broadcastMessage(DARK_GRAY + "[" + DARK_GREEN + "POLL" + DARK_GRAY + "] " + GREEN
-						+ "Do /poll vote to vote on the poll!" + WHITE + "(" + DARK_PURPLE
-						+ GCPoll.plugin.getConfig().getInt("whatTime") + " minutes!" + WHITE + ")\n" + LIGHT_PURPLE
+						+ "Do /poll vote to vote on the poll! " + GRAY + "(" + DARK_PURPLE + "for "
+						+ GCPoll.plugin.getConfig().getInt("whatTime") + " minutes!" + GRAY + ")\n" + LIGHT_PURPLE
 						+ "Question: " + RED + question);
-	}
-
-	public static void addTime(int time) {
-		GCPoll.plugin.getConfig().set("whatTime", time);
 	}
 
 	public static void stopAnnouncer() {
@@ -65,32 +67,33 @@ public class GCPollUtil implements Listener {
 				+ "The current poll has ended!\n" + GREEN + message);
 	}
 
+	public static void addTime(int time) {
+		GCPoll.plugin.getConfig().set("whatTime", time);
+	}
+
 	public static void onEnd() {
 		Inventory inve = inv;
 
-		int firstItem = inve.getItem(1).getAmount();
-		int secondItem = inve.getItem(2).getAmount();
-		int thirdItem = inve.getItem(3).getAmount();
+		int firstItem = inve.getItem(0).getAmount();
+		int secondItem = inve.getItem(1).getAmount();
+		int thirdItem = inve.getItem(2).getAmount();
 
-		if (firstItem > secondItem) {
-			if (firstItem > thirdItem) {
-				endAnnouncer(GCPollCommands.text1 + " has been picked!");
-				return;
-			}
+		if (firstItem > secondItem && firstItem > thirdItem) {
+			endAnnouncer(GCPollCommands.text1 + " has been picked!");
+			inve.clear();
+			return;
 		}
 
-		if (secondItem > firstItem) {
-			if (secondItem > thirdItem) {
-				endAnnouncer(GCPollCommands.text2 + " has been picked!");
-				return;
-			}
+		if (secondItem > firstItem && secondItem > thirdItem) {
+			endAnnouncer(GCPollCommands.text2 + " has been picked!");
+			inve.clear();
+			return;
 		}
 
-		if (thirdItem > firstItem) {
-			if (thirdItem > secondItem) {
-				endAnnouncer(GCPollCommands.text3 + " has been picked!");
-				return;
-			}
+		if (thirdItem > firstItem && thirdItem > secondItem) {
+			endAnnouncer(GCPollCommands.text3 + " has been picked!");
+			inve.clear();
+			return;
 		}
 	}
 
@@ -135,8 +138,7 @@ public class GCPollUtil implements Listener {
 	 * 
 	 * anvilinv.setItem(1, paperr); player.giveExpLevels(1);
 	 * 
-	 * player.openInventory(anvilinv); }
-	 * // GCPollUtil.openAnvInv(player);
+	 * player.openInventory(anvilinv); } // GCPollUtil.openAnvInv(player);
 	 */
 
 	public static void sendMessage(Player player, String message) {
@@ -155,5 +157,20 @@ public class GCPollUtil implements Listener {
 	public static void stopPoll(Inventory inventory) {
 		inventory.clear();
 		stopAnnouncer();
+	}
+	
+	public static void playerOpenInventory(Player player, String titleName) {
+		Inventory c1m = create1more;
+		ItemStack[] allIn = inv.getContents();
+		c1m.setContents(allIn);
+		setStrings("whatTitle", titleName);
+		
+		player.openInventory(c1m);
+	}
+	
+	public static void setStrings(String string, String object) {
+		GCPoll.plugin.getConfig().set(string, object);
+		GCPoll.plugin.saveConfig();
+		GCPoll.plugin.reloadConfig();
 	}
 }

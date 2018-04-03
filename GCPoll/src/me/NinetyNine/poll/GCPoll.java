@@ -12,7 +12,7 @@ public class GCPoll extends JavaPlugin {
 	/*
 	 * Created 4/1/2018.
 	 * 
-	 * Last edited: 2nd of April 2018
+	 * Last edited: 3rd of April 2018
 	 * 
 	 * TODO: 
 	 * = If possible, make it an anvil inventory(in making the options).
@@ -34,6 +34,12 @@ public class GCPoll extends JavaPlugin {
 		getCommand("poll").setExecutor(new GCPollCommands());
 
 		GCPollUtil.sendConsoleMsg("Getting config...");
+		plugin.getConfig().set("whatQuestion", "");
+		plugin.getConfig().set("whatOption1", "");
+		plugin.getConfig().set("whatOption2", "");
+		plugin.getConfig().set("whatOption3", "");
+		plugin.getConfig().set("whatTitle", "");
+		plugin.getConfig().set("whatTime", "");
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 		reloadConfig();
