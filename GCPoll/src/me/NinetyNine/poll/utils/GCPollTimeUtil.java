@@ -11,6 +11,6 @@ public class GCPollTimeUtil implements Listener {
 			public void run() {
 				GCPollUtil.onEnd();
 			}
-		}, 20 * GCPoll.plugin.getConfig().getInt("whatTime"));
+		}, 1200 * GCPoll.plugin.getConfig().getInt("whatTime"));
 	}
 }

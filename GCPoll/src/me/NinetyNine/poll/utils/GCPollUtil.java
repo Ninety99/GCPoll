@@ -15,7 +15,7 @@ import static org.bukkit.ChatColor.translateAlternateColorCodes;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -23,16 +23,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 import me.NinetyNine.poll.GCPoll;
 import me.NinetyNine.poll.commands.GCPollCommands;
 
-public class GCPollUtil {
+public class GCPollUtil implements Listener {
 
 	public static String invTitle = GCPollCommands.question;
 	public static Inventory inv = Bukkit.createInventory(null, 9, GREEN + invTitle);
 
 	public static ItemStack paper1 = new ItemStack(Material.PAPER);
-	//public static ItemStack paper2 = new ItemStack(Material.PAPER);
-	//public static ItemStack paper3 = new ItemStack(Material.PAPER);
 
-	public static void setDisplay1(Player player, String displayName) {
+	public static void setDisplay(Player player, String displayName) {
 		Inventory inv1 = inv;
 
 		ItemStack paper = paper1;
@@ -53,13 +51,13 @@ public class GCPollUtil {
 						+ "Question: " + RED + question);
 	}
 
-	public static void addTime(int timee) {
-		GCPoll.plugin.getConfig().set("whatTime", timee);
+	public static void addTime(int time) {
+		GCPoll.plugin.getConfig().set("whatTime", time);
 	}
 
 	public static void stopAnnouncer() {
 		Bukkit.getServer().broadcastMessage(DARK_GRAY + "[" + DARK_GREEN + "POLL" + DARK_GRAY + "] " + RED
-				+ "The current poll has been stopped! Therefore no result is chosen");
+				+ "The current poll has been stopped! Therefore no result will be chosen");
 	}
 
 	public static void endAnnouncer(String message) {
@@ -68,9 +66,11 @@ public class GCPollUtil {
 	}
 
 	public static void onEnd() {
-		int firstItem = inv.getItem(0).getAmount();
-		int secondItem = inv.getItem(1).getAmount();
-		int thirdItem = inv.getItem(2).getAmount();
+		Inventory inve = inv;
+
+		int firstItem = inve.getItem(1).getAmount();
+		int secondItem = inve.getItem(2).getAmount();
+		int thirdItem = inve.getItem(3).getAmount();
 
 		if (firstItem > secondItem) {
 			if (firstItem > thirdItem) {
@@ -117,27 +117,27 @@ public class GCPollUtil {
 		ironmeta.setDisplayName(GRAY + "20 minutes");
 		iron.setItemMeta(ironmeta);
 
-		inventory.setItem(2, coal);
-		inventory.setItem(4, redstone);
-		inventory.setItem(6, gold);
-		inventory.setItem(8, iron);
+		inventory.setItem(1, coal);
+		inventory.setItem(3, redstone);
+		inventory.setItem(5, gold);
+		inventory.setItem(7, iron);
 
 		player.openInventory(inventory);
 	}
 
-	public static void openAnvInv(Player player) {
-		Inventory anvilinv = Bukkit.createInventory(null, InventoryType.ANVIL);
-
-		ItemStack paperr = new ItemStack(Material.PAPER, 1);
-		ItemMeta paperrmeta = paperr.getItemMeta();
-		paperrmeta.setDisplayName("Rename me as options!");
-		paperr.setItemMeta(paperrmeta);
-
-		anvilinv.setItem(0, paperr);
-		player.giveExpLevels(1);
-
-		player.openInventory(anvilinv);
-	}
+	/*
+	 * public static void openAnvInv(Player player) { Inventory anvilinv =
+	 * Bukkit.createInventory(null, InventoryType.ANVIL);
+	 * 
+	 * ItemStack paperr = paper1; ItemMeta paperrmeta = paperr.getItemMeta();
+	 * paperrmeta.setDisplayName("Rename me as options!");
+	 * paperr.setItemMeta(paperrmeta);
+	 * 
+	 * anvilinv.setItem(1, paperr); player.giveExpLevels(1);
+	 * 
+	 * player.openInventory(anvilinv); }
+	 * // GCPollUtil.openAnvInv(player);
+	 */
 
 	public static void sendMessage(Player player, String message) {
 		player.sendMessage(translateAlternateColorCodes('&', message));
@@ -145,5 +145,15 @@ public class GCPollUtil {
 
 	public static void sendConsoleMsg(String message) {
 		Bukkit.getServer().getLogger().info("[GCPoll] " + message);
+	}
+
+	public static void startPoll(Player player) {
+		GCPollTimeUtil.onStart();
+		openTime(player);
+	}
+
+	public static void stopPoll(Inventory inventory) {
+		inventory.clear();
+		stopAnnouncer();
 	}
 }
